@@ -122,16 +122,21 @@ if __name__ == '__main__':
     manager = Manager(parameters)
 
     for apartment in manager.apartments.values():
-        print(apartment.key, apartment.name, apartment.location, apartment.area_m2)
+        print(f'Mieszkanie [{apartment.key}]: {apartment.name}, {apartment.location}, {apartment.area_m2} m2')
         for room in apartment.rooms.values():
-            print('  ', room.name, room.area_m2)
+            print(f'  Pokoj: {room.name} ({room.area_m2} m2)')
         
         for bill in manager.bills:
             if bill.apartment == apartment.key:
-                print('  ', bill.amount_pln, bill.date_due, bill.settlement_year, bill.settlement_month, bill.type)
+                print(f'  Rachunek: {bill.type}, {bill.amount_pln} PLN, termin {bill.date_due}, za {bill.settlement_year}-{bill.settlement_month}')
+
+    print()
 
     for tenant in manager.tenants.values():
-        print(tenant.name, tenant.apartment, tenant.room, tenant.rent_pln, tenant.deposit_pln, tenant.date_agreement_from, tenant.date_agreement_to)
+        print(f'Najemca: {tenant.name} | mieszkanie: {tenant.apartment}, pokoj: {tenant.room}')
+        print(f'  Czynsz: {tenant.rent_pln} PLN, kaucja: {tenant.deposit_pln} PLN, umowa: {tenant.date_agreement_from} - {tenant.date_agreement_to}')
         for transfer in manager.transfers:
             if transfer.tenant == tenant.name:
-                print('  ', transfer.amount_pln, transfer.date, transfer.settlement_year, transfer.settlement_month)
+                print(f'  Przelew: {transfer.amount_pln} PLN, data {transfer.date}, za {transfer.settlement_year}-{transfer.settlement_month}')
+
+    print()
