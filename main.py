@@ -122,16 +122,16 @@ if __name__ == '__main__':
     manager = Manager(parameters)
 
     for apartment in manager.apartments.values():
-        print(apartment.key, apartment.name, apartment.location, apartment.area_m2)
+        print(f"APARTMENT: {apartment.name} ({apartment.location}) - {apartment.area_m2} m2")
         for room in apartment.rooms.values():
-            print('  ', room.name, room.area_m2)
+            print(f"    room: {room.name} ({room.area_m2} m2)")
         
         for bill in manager.bills:
             if bill.apartment == apartment.key:
-                print('  ', bill.amount_pln, bill.date_due, bill.settlement_year, bill.settlement_month, bill.type)
+                print(f"  * bill [{bill.type}]: {bill.amount_pln} PLN, due: {bill.date_due}) [{bill.settlement_year}-{bill.settlement_month}]")
 
     for tenant in manager.tenants.values():
-        print(tenant.name, tenant.apartment, tenant.room, tenant.rent_pln, tenant.deposit_pln, tenant.date_agreement_from, tenant.date_agreement_to)
+        print(f"TENANT: {tenant.name} | rent: {tenant.rent_pln} PLN | deposit: {tenant.deposit_pln} PLN")
         for transfer in manager.transfers:
             if transfer.tenant == tenant.name:
-                print('  ', transfer.amount_pln, transfer.date, transfer.settlement_year, transfer.settlement_month)
+                print(f"  * transfer: {transfer.amount_pln} PLN on {transfer.date} (for {transfer.settlement_month}/{transfer.settlement_year})")
